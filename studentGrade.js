@@ -1,3 +1,5 @@
+//  Program to calculate student's average grade.
+
 const marks = [80, 80, 100];
 
 function calcuateGrade(marks) {
