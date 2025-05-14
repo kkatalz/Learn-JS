@@ -31,9 +31,20 @@ function AddressConstructor(street, city, zipCode) {
   this.zipCode = zipCode;
 }
 
-let addressConstructor = new AddressConstructor(
-  "Saint Laures, 12",
-  "Kyiv",
-  1233
-);
-console.log(addressConstructor);
+let addressConstructor1 = new AddressConstructor("b", "b", 12);
+let addressConstructor2 = new AddressConstructor("b", "b", 12);
+let addressConstructor3 = addressConstructor1;
+
+console.log(areEqual(addressConstructor1, addressConstructor2));
+console.log(areSame(addressConstructor1, addressConstructor3));
+
+function areEqual(address1, address2) {
+  for (let key in address1) {
+    if (address1[key] !== address2[key]) return false;
+  }
+  return true;
+}
+
+function areSame(address1, address2) {
+  return address1 === address2;
+}
