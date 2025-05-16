@@ -1,6 +1,6 @@
 // Task 1. Array from Range
 const numbers = arrayFromRange(-10, 3);
-// console.log(numbers);
+// console.log(Task 1. Array from Range\nnumbers);
 
 function arrayFromRange(min, max) {
   let output = [];
@@ -11,7 +11,7 @@ function arrayFromRange(min, max) {
 // Task 2. Includes
 const numbersList = [1, 2, 3, 4, 5, 1, 22, 2, 2];
 // console.log(numbersList.includes(1));
-// console.log("Custom includes():", includes(numbersList, -1));
+// console.log("Task 2. Includes\nCustom includes():", includes(numbersList, -1));
 
 function includes(array, searchElement) {
   for (let el of array) {
@@ -22,7 +22,12 @@ function includes(array, searchElement) {
 
 // Task 3. Exclude
 const output = except(numbersList, [1, 2]);
-console.log("\nCurrent is: ", numbersList, "After removal, we get: ", output);
+// console.log(
+//   "Task 3. Exclude\nCurrent is: ",
+//   numbersList,
+//   "After removal, we get: ",
+//   output
+// );
 
 function except(array, excluded) {
   // 1st option
@@ -40,4 +45,22 @@ function except(array, excluded) {
   //     if (!excluded.includes(number)) output.push(number);
   //   }
   //   return output;
+}
+
+// Task 4. Moving an element
+const numbersArray = [1, 2, 3, 4];
+console.log("\nTask 4. Moving an element\nGiven array: ", numbersArray);
+const outputAfterMove = move(numbersArray, 2, -1);
+console.log("New array after moving: ", outputAfterMove);
+
+function move(array, index, offset) {
+  const position = index + offset;
+  if (position >= array.length || position < 0) {
+    console.error("Invalid offset");
+    return;
+  }
+  const outputAfterMove = [...array];
+  const element = outputAfterMove.splice(index, 1)[0];
+  outputAfterMove.splice(position, 0, element);
+  return outputAfterMove;
 }
