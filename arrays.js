@@ -26,18 +26,18 @@ console.log("\nCurrent is: ", numbersList, "After removal, we get: ", output);
 
 function except(array, excluded) {
   // 1st option
-  //   let output = [...array];
-  //   for (let exclEl of excluded) {
-  //     for (let el of array) {
-  //       if (exclEl === el) output.splice(output.indexOf(exclEl), 1);
-  //     }
-  //   }
-  //   return output;
-
-  // 2nd option
-  const output = [];
-  for (let number of array) {
-    if (!excluded.includes(number)) output.push(number);
+  let output = [...array];
+  for (let exclEl of excluded) {
+    for (let el of output) {
+      if (exclEl === el) output.splice(output.indexOf(exclEl), 1);
+    }
   }
   return output;
+
+  // 2nd option
+  //   const output = [];
+  //   for (let number of array) {
+  //     if (!excluded.includes(number)) output.push(number);
+  //   }
+  //   return output;
 }
