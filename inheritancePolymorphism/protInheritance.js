@@ -8,7 +8,7 @@ HtmlElement.prototype.focus = function () {
   console.log("focus");
 };
 
-function HtmlSelectElement(...items) {
+function HtmlSelectElement(items = []) {
   this.items = items;
 
   this.addItem = function (item) {
