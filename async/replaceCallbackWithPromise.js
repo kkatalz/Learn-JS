@@ -21,3 +21,10 @@ function getRepositories(username, callback) {
     callback(["repo1", "repo2", "repo3"]);
   }, 2000);
 }
+
+function getCommits(repos, callback) {
+  setTimeout(() => {
+    console.log("Commits are being searched..");
+    callback(["commit1", "commit2"]);
+  }, 2000);
+}
