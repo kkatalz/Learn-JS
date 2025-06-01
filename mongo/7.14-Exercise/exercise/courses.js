@@ -39,4 +39,14 @@ async function getCourses2() {
   console.log(courses);
 }
 
-getCourses2();
+// getCourses2();
+
+async function getCourses3() {
+  const courses = await Course.find({
+    isPublished: true,
+  }).or([{ price: { $gte: 15 } }, { name: /.*by.*/i }]);
+
+  console.log(courses);
+}
+
+getCourses3();
