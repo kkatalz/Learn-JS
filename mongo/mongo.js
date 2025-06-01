@@ -31,6 +31,7 @@ async function createCourse() {
 // UPDATE
 async function updateCourse(id) {
   // Approach: Query first
+  /*
   const course = await Course.findById(id);
   if (!course) {
     console.log("No such id");
@@ -44,8 +45,20 @@ async function updateCourse(id) {
 
   const result = await course.save();
   console.log(result);
+  */
 
   // Approach: Update first
+  const result = await Course.findByIdAndUpdate(
+    { _id: id },
+    {
+      $set: {
+        author: " Jacob",
+        isPublished: true,
+      },
+    },
+    { new: true }
+  );
+  console.log(result);
 }
 
 updateCourse("683c497e23446c4e40f9f665");
