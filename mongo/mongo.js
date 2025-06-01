@@ -15,6 +15,7 @@ const courseSchema = new mongoose.Schema({
 
 const Course = mongoose.model("Course", courseSchema);
 
+// CREATE
 async function createCourse() {
   const course = new Course({
     name: "Angular Couse",
@@ -27,6 +28,29 @@ async function createCourse() {
   console.log(result);
 }
 
+// UPDATE
+async function updateCourse(id) {
+  // Approach: Query first
+  const course = await Course.findById(id);
+  if (!course) {
+    console.log("No such id");
+    return;
+  }
+
+  course.set({
+    isPublished: true,
+    author: "Anoher Author",
+  });
+
+  const result = await course.save();
+  console.log(result);
+
+  // Approach: Update first
+}
+
+updateCourse("683c497e23446c4e40f9f665");
+
+// GET
 async function getCourses() {
   const courses = await Course.find({ author: "Mosh", isPublished: true })
     .limit(10)
@@ -35,4 +59,4 @@ async function getCourses() {
   console.log(courses);
 }
 
-getCourses();
+// getCourses();
