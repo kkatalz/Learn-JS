@@ -3,4 +3,7 @@ Node/express-demo/node_modules
 Node/express-demo/node_modules
 Node/express-demo/package-lock.json
 Node/express-demo/package.json
+mongo/node_modules
+mongo/package.json
+mongo/package-lock.json
 index.html
