@@ -61,7 +61,7 @@ async function updateCourse(id) {
   console.log(result);
 }
 
-updateCourse("683c497e23446c4e40f9f665");
+// updateCourse("683c497e23446c4e40f9f665");
 
 // GET
 async function getCourses() {
@@ -73,3 +73,17 @@ async function getCourses() {
 }
 
 // getCourses();
+
+// REMOVE a document
+async function removeCourse(id) {
+  const result = await Course.deleteOne({ _id: id });
+
+  if (!result) {
+    console.log("No such id");
+    return;
+  }
+
+  console.log(result);
+}
+
+removeCourse("683c497e23446c4e40f9f665");
