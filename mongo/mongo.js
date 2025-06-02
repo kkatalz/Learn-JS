@@ -6,7 +6,7 @@ mongoose
   .catch((err) => console.error("Could not connectc to MongoDb", err));
 
 const courseSchema = new mongoose.Schema({
-  name: String,
+  name: { type: String, required: true },
   author: String,
   tags: [String],
   date: { type: Date, default: Date.now },
@@ -18,15 +18,21 @@ const Course = mongoose.model("Course", courseSchema);
 // CREATE
 async function createCourse() {
   const course = new Course({
-    name: "Angular Couse",
+    // name: "Angular Couse",
     author: "Mosh",
     tags: ["angular", "frontend"],
     isPublished: true,
   });
 
-  const result = await course.save();
-  console.log(result);
+  try {
+    const result = await course.save();
+    console.log(result);
+  } catch (ex) {
+    console.log(ex.message);
+  }
 }
+
+createCourse();
 
 // UPDATE
 async function updateCourse(id) {
@@ -86,4 +92,4 @@ async function removeCourse(id) {
   console.log(result);
 }
 
-removeCourse("683c497e23446c4e40f9f665");
+// removeCourse("683c497e23446c4e40f9f665");
