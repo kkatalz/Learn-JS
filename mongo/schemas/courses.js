@@ -26,7 +26,6 @@ async function getCourses1() {
   console.log(courses);
 }
 
-// getCourses1();
 
 // task 2
 async function getCourses2() {
@@ -39,8 +38,6 @@ async function getCourses2() {
   console.log(courses);
 }
 
-// getCourses2();
-
 async function getCourses3() {
   const courses = await Course.find({
     isPublished: true,
@@ -48,5 +45,3 @@ async function getCourses3() {
 
   console.log(courses);
 }
-
-getCourses3();
