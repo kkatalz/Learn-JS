@@ -1,0 +1,5 @@
+This package is not intended to be used by anyone but storybook internally.
+
+Even though this is where all of the code is located, it is NOT to be the entry point when using functionality within!
+
+Consumers of the code should import like so:
