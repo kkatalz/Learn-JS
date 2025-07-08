@@ -7,7 +7,7 @@ async function getUsers() {
         const users = rawUsers.map((user) => ({
             name: {
                 first: user.name.first,
-                last: user.name.first,
+                last: user.name.last,
             },
             gender: user.gender,
             location: {

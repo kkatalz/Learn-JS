@@ -23,7 +23,7 @@ async function getUsers(): Promise<User[]> {
     const users: User[] = rawUsers.map((user: any) => ({
       name: {
         first: user.name.first,
-        last: user.name.first,
+        last: user.name.last,
       },
       gender: user.gender,
       location: {
