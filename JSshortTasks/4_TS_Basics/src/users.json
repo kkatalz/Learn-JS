@@ -1,0 +1,28 @@
+[
+  {
+    "name": {
+      "first": "Juni",
+      "last": "Juni"
+    },
+    "gender": "female",
+    "location": {
+      "city": "Husnes",
+      "country": "Norway"
+    },
+    "email": "juni.wiik@example.com",
+    "phone": "52902832"
+  },
+  {
+    "name": {
+      "first": "Harper",
+      "last": "Harper"
+    },
+    "gender": "female",
+    "location": {
+      "city": "Orange",
+      "country": "Australia"
+    },
+    "email": "harper.ryan@example.com",
+    "phone": "04-2513-2001"
+  }
+]
