@@ -52,13 +52,23 @@ function listTasks() {
     const parsedTasks = JSON.parse(fileContent);
     console.log("Tasks: \n", parsedTasks);
 }
+function completeTask(taskId) {
+    const tasks = readFile();
+}
 function deleteTask(taskId) {
     const tasks = readFile();
-    console.log(taskId, "\n");
+    const tasksNumber = tasks.length;
     console.log(tasks);
-    const updatedTasks = tasks.filter((task) => task.id !== taskId);
-    fs.writeFileSync(file, JSON.stringify(updatedTasks, null, 2));
-    console.log(`Task ${taskId} was deleted successfully`);
+    try {
+        const updatedTasks = tasks.filter((task) => task.id !== taskId);
+        if (tasksNumber === updatedTasks.length)
+            throw new Error(`Task with given id does not exist.`);
+        fs.writeFileSync(file, JSON.stringify(updatedTasks, null, 2));
+        console.log(`Task above (${taskId}) was deleted successfully`);
+    }
+    catch (e) {
+        console.error(`Error deleting a task: ${e}`);
+    }
 }
 function parseCommand() {
     const command = argv[2];
@@ -70,6 +80,7 @@ function parseCommand() {
         listTasks();
     else if (command === "complete") {
         const taskId = Number(argv[3]);
+        completeTask(taskId);
     }
     else if (command === "delete") {
         const taskId = Number(argv[3]);

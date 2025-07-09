@@ -76,16 +76,28 @@ function listTasks(): void {
   console.log("Tasks: \n", parsedTasks);
 }
 
+function completeTask(taskId: number): void {
+  const tasks = readFile();
+}
+
 function deleteTask(taskId: number): void {
   const tasks = readFile();
+  const tasksNumber = tasks.length;
   console.log(tasks);
 
-  const updatedTasks: SavedTask[] = tasks.filter(
-    (task: any) => task.id !== taskId
-  );
+  try {
+    const updatedTasks: SavedTask[] = tasks.filter(
+      (task: any) => task.id !== taskId
+    );
 
-  fs.writeFileSync(file, JSON.stringify(updatedTasks, null, 2));
-  console.log(`Task above (${taskId}) was deleted successfully`);
+    if (tasksNumber === updatedTasks.length)
+      throw new Error(`Task with given id does not exist.`);
+
+    fs.writeFileSync(file, JSON.stringify(updatedTasks, null, 2));
+    console.log(`Task above (${taskId}) was deleted successfully`);
+  } catch (e) {
+    console.error(`Error deleting a task: ${e}`);
+  }
 }
 
 function parseCommand() {
@@ -96,7 +108,7 @@ function parseCommand() {
   } else if (command === "list") listTasks();
   else if (command === "complete") {
     const taskId = Number(argv[3]);
-    // completeTask(taskId);
+    completeTask(taskId);
   } else if (command === "delete") {
     const taskId = Number(argv[3]);
     deleteTask(taskId);
