@@ -21,10 +21,7 @@ export function addTask(taskDescription: string) {
 }
 
 export function listTasks(): void {
-  const fileContent = fs.readFileSync(file, "utf8");
-  const parsedTasks = JSON.parse(fileContent);
-
-  console.log("Tasks: \n", parsedTasks);
+  console.log("Tasks: \n", readFile());
 }
 
 export function completeTask(taskId: number) {
