@@ -1,13 +1,5 @@
 import { argv } from "node:process";
 import fs from "fs";
-class Task {
-    constructor(id, description, status, createdAt) {
-        this.id = id;
-        this.description = description;
-        this.status = status;
-        this.createdAt = createdAt;
-    }
-}
 var Status;
 (function (Status) {
     Status[Status["Pending"] = 0] = "Pending";
@@ -54,11 +46,34 @@ function listTasks() {
 }
 function completeTask(taskId) {
     const tasks = readFile();
+    let updateTask = false;
+    try {
+        const updatedTasks = tasks.map((task) => {
+            if (task.id === taskId) {
+                updateTask = true;
+                return {
+                    id: task.id,
+                    description: task.description,
+                    status: Status.Completed,
+                    createdAt: task.createdAt,
+                };
+            }
+            else {
+                return task;
+            }
+        });
+        if (!updateTask)
+            throw new Error(`Task with given id does not exist.`);
+        fs.writeFileSync(file, JSON.stringify(updatedTasks, null, 2));
+        console.log(`You have completed task (${taskId})`);
+    }
+    catch (e) {
+        console.error(`Error completing a task: ${e}`);
+    }
 }
 function deleteTask(taskId) {
     const tasks = readFile();
     const tasksNumber = tasks.length;
-    console.log(tasks);
     try {
         const updatedTasks = tasks.filter((task) => task.id !== taskId);
         if (tasksNumber === updatedTasks.length)

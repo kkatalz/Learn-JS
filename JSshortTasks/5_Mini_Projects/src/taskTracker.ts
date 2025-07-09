@@ -2,30 +2,17 @@ import { argv } from "node:process";
 import fs from "fs";
 import { log } from "node:console";
 
-class Task {
-  constructor(
-    public id: number,
-    public description: string,
-    public status: boolean,
-    public createdAt: Date
-  ) {}
-}
-
 enum Status {
   Pending,
   Completed,
 }
 
-interface SavedTask {
+interface Task {
   id: number;
   description: string;
   status: Status;
   createdAt: string;
 }
-
-// TODO:
-// node dist/index.js complete 1
-// node dist/index.js delete 1
 
 const file = "taskTracker.json";
 const randomId = generateRandom8DigitNumber();
@@ -46,7 +33,7 @@ function readFile(): any {
 }
 
 function addTask(task: string): void {
-  const createdTask: SavedTask = {
+  const createdTask: Task = {
     id: Number(randomId),
     description: task,
     status: Status.Pending,
@@ -56,7 +43,7 @@ function addTask(task: string): void {
   const existingTasks = readFile();
 
   if (!existingTasks) {
-    let tasks: Array<SavedTask> = [];
+    let tasks: Array<Task> = [];
     tasks.push(createdTask);
 
     fs.writeFileSync(file, JSON.stringify(tasks, null, 2));
@@ -78,15 +65,38 @@ function listTasks(): void {
 
 function completeTask(taskId: number): void {
   const tasks = readFile();
+  let updateTask: boolean = false;
+
+  try {
+    const updatedTasks: Task[] = tasks.map((task: Task) => {
+      if (task.id === taskId) {
+        updateTask = true;
+        return {
+          id: task.id,
+          description: task.description,
+          status: Status.Completed,
+          createdAt: task.createdAt,
+        };
+      } else {
+        return task;
+      }
+    });
+
+    if (!updateTask) throw new Error(`Task with given id does not exist.`);
+
+    fs.writeFileSync(file, JSON.stringify(updatedTasks, null, 2));
+    console.log(`You have completed task (${taskId})`);
+  } catch (e) {
+    console.error(`Error completing a task: ${e}`);
+  }
 }
 
 function deleteTask(taskId: number): void {
   const tasks = readFile();
   const tasksNumber = tasks.length;
-  console.log(tasks);
 
   try {
-    const updatedTasks: SavedTask[] = tasks.filter(
+    const updatedTasks: Task[] = tasks.filter(
       (task: any) => task.id !== taskId
     );
 
