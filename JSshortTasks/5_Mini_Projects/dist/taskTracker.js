@@ -35,7 +35,6 @@ function addTask(task) {
         createdAt: new Date().toISOString(),
     };
     const existingTasks = readFile();
-    console.log("1existingTasks: \n", existingTasks);
     if (!existingTasks) {
         let tasks = [];
         tasks.push(createdTask);
@@ -53,7 +52,14 @@ function listTasks() {
     const parsedTasks = JSON.parse(fileContent);
     console.log("Tasks: \n", parsedTasks);
 }
-function completeTask(task) { }
+function deleteTask(taskId) {
+    const tasks = readFile();
+    console.log(taskId, "\n");
+    console.log(tasks);
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
+    fs.writeFileSync(file, JSON.stringify(updatedTasks, null, 2));
+    console.log(`Task ${taskId} was deleted successfully`);
+}
 function parseCommand() {
     const command = argv[2];
     if (command === "add") {
@@ -63,8 +69,11 @@ function parseCommand() {
     else if (command === "list")
         listTasks();
     else if (command === "complete") {
-        const task = argv[3];
-        completeTask(task);
+        const taskId = Number(argv[3]);
+    }
+    else if (command === "delete") {
+        const taskId = Number(argv[3]);
+        deleteTask(taskId);
     }
 }
 parseCommand();

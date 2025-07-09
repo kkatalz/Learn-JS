@@ -76,7 +76,17 @@ function listTasks(): void {
   console.log("Tasks: \n", parsedTasks);
 }
 
-function completeTask(task: string): void {}
+function deleteTask(taskId: number): void {
+  const tasks = readFile();
+  console.log(tasks);
+
+  const updatedTasks: SavedTask[] = tasks.filter(
+    (task: any) => task.id !== taskId
+  );
+
+  fs.writeFileSync(file, JSON.stringify(updatedTasks, null, 2));
+  console.log(`Task above (${taskId}) was deleted successfully`);
+}
 
 function parseCommand() {
   const command = argv[2];
@@ -85,8 +95,11 @@ function parseCommand() {
     addTask(task);
   } else if (command === "list") listTasks();
   else if (command === "complete") {
-    const task = argv[3];
-    completeTask(task);
+    const taskId = Number(argv[3]);
+    // completeTask(taskId);
+  } else if (command === "delete") {
+    const taskId = Number(argv[3]);
+    deleteTask(taskId);
   }
 }
 
